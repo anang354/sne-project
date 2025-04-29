@@ -29,10 +29,11 @@ class SendEmailAction
                             ->send();
                     $livewire->dispatch('refresh-table');
                 } catch (\Exception $e) {
-                    Notification::make()
-                            ->title("Error")
-                            ->error()
-                            ->send();
+                    // Notification::make()
+                    //         ->title("Error")
+                    //         ->error($e)
+                    //         ->send();
+                    dd($e);
                 }
             })
             ->visible(function ($record) {

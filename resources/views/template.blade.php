@@ -258,7 +258,7 @@
         <div class="qr-code">
           <img src="data:image/svg+xml;base64,{{$qrCode}}"/>
         </div>
-        <p><b>SUGENG</b></p>
+        <p><b>SUGIARTI</b></p>
       </div>
   </div>
 </body>

@@ -134,6 +134,7 @@ class SalariesRelationManager extends RelationManager
                     }
                     return null;
                 })
+                ->visible(fn ($record): bool => $record->isPdf)
                 ->openUrlInNewTab(),
                 SendEmailAction::make(),
             ])

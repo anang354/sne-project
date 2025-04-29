@@ -24,7 +24,8 @@ class GenerateSlip
             ->color('primary')
             ->icon('heroicon-o-document-arrow-down')
             ->action(function (Collection $records, Component $livewire) {
-                $generateCount = 0;
+                try {
+                    $generateCount = 0;
                 foreach($records as $salary) {
                     $bulan = $salary->periode->month;
                     $tahun = $salary->periode->year;
@@ -83,6 +84,9 @@ class GenerateSlip
                     ->title("Berhasil Generate Pdf untuk ".$generateCount." Slip Gaji")
                     ->success()
                     ->send();
+                } catch(\Exception $er) {
+                    dd($er);
+                }
             });
             // ->visible(function (Table $table) {
             //     // Cek apakah semua record yang ada memiliki is_pdf = true

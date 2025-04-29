@@ -52,9 +52,9 @@ class SalarySentMail extends Mailable
      */
     public function attachments(): array
     {
-        $filePath = $this->salary->file;
+        $filePath = 'storage/'.$this->salary->file;
         return [
-            Attachment::fromPath(public_path($filePath)),
+            Attachment::fromPath($filePath),
         ];
     }
 }
