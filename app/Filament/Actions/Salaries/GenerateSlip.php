@@ -30,6 +30,7 @@ class GenerateSlip
                     $bulan = $salary->periode->month;
                     $tahun = $salary->periode->year;
                     $folderPath = $bulan.'-'.$tahun;
+                    $nomorAcak = self::generateRandomString();
                     
                     if (!Storage::disk('public')->exists($folderPath)) {
                         Storage::disk('public')->makeDirectory($folderPath, 0775, true, true);
@@ -39,8 +40,8 @@ class GenerateSlip
                     $data = file_get_contents($path);
                     $image = 'data:image/'.$type.';base64,'.base64_encode($data);
                     $qrCode = base64_encode(QrCode::format('svg')->size('70')->generate($salary->nomor_surat)); 
-                    $filePath = $folderPath.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'.pdf';
-                    $fileUrl = $bulan.'-'.$tahun.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'.pdf';
+                    $filePath = $folderPath.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'-'.$nomorAcak.'.pdf';
+                    $fileUrl = $bulan.'-'.$tahun.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'-'.$nomorAcak.'.pdf';
 
                     //dd(Storage::exists($folderPath));
 
@@ -92,5 +93,15 @@ class GenerateSlip
             //     // Cek apakah semua record yang ada memiliki is_pdf = true
             //     //return \App\Models\Salary::query()->where('isPdf', false)->doesntExist();
             // });
+    }
+
+    public static function generateRandomString($length = 6) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
