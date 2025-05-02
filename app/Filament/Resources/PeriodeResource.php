@@ -71,7 +71,7 @@ class PeriodeResource extends Resource
                 TextColumn::make('year')
                 ->label('Tahun'),
                 TextColumn::make('salaries_count')
-                ->label('Jumlah Salary')->counts('salaries'),
+                ->label('Jumlah Karyawan')->counts('salaries'),
                 TextColumn::make('total_gaji_bersih') // Tambahkan kolom ini
                     ->label('Total Gaji Bersih')
                     ->getStateUsing(function (Periode $record) {
