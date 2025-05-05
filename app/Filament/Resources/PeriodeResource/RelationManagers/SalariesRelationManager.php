@@ -143,8 +143,8 @@ class SalariesRelationManager extends RelationManager
             ])
             ->headerActions([
                 ImportAction::make()->importer(SalaryImporter::class)
-                ->label('Imports')->icon('heroicon-m-arrow-down-on-square-stack')
-                ->color('success')
+                ->label('Imports')->icon('heroicon-m-arrow-up-tray')
+                ->color('cyan')
             ])
             ->actions([
                 // Tables\Actions\DeleteAction::make(),
