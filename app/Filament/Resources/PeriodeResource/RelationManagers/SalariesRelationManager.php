@@ -20,6 +20,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 class SalariesRelationManager extends RelationManager
 {
     protected static string $relationship = 'salaries';
+    protected static array $defaultPaginationPageOptions = [25,50,100];
 
     public function form(Form $form): Form
     {
@@ -93,7 +94,28 @@ class SalariesRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('nik')->toggleable()->searchable(),
                 Tables\Columns\TextColumn::make('nama')->searchable(),
-                Tables\Columns\TextColumn::make('departemen')->toggleable(),
+                Tables\Columns\BadgeColumn::make('departemen')
+                ->colors([
+                    'primary',
+                    'success' => static fn ($state) : bool => $state === 'Administrative',
+                    'danger' => static fn ($state) : bool => $state === 'Equipment',
+                    'violet' => static fn ($state) : bool => $state === 'Finance',
+                    'cyan' => static fn ($state) : bool => $state === 'Technology',
+                    'lime' => static fn ($state) : bool => $state === 'Warehouse Planning',
+                    'pink' => static fn ($state) : bool => $state === 'Quality',
+                    'info' => static fn ($state) : bool => $state === 'Production',
+                ])
+                ->icons([
+                    'heroicon-o-tag',
+                    'heroicon-o-document-text' => 'Administrative',
+                    'heroicon-o-wrench-screwdriver' => 'Equipment',
+                    'heroicon-o-currency-yen' => 'Finance',
+                    'heroicon-o-computer-desktop' => 'Technology',
+                    'heroicon-o-building-storefront' => 'Warehouse Planning',
+                    'heroicon-o-beaker' => 'Quality',
+                    'heroicon-o-users' => 'Production',
+                ])
+                ->toggleable(),
                 Tables\Columns\TextColumn::make('posisi')->toggleable(),
                 Tables\Columns\TextColumn::make('gaji_bersih')
                     ->formatStateUsing(function ($state) {
