@@ -78,6 +78,7 @@ class PeriodeResource extends Resource
                         return 'Rp ' . number_format($record->salaries()->sum('gaji_bersih'), 0, ',', '.');
                     }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
