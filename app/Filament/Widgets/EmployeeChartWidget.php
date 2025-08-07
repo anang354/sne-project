@@ -16,7 +16,7 @@ class EmployeeChartWidget extends ChartWidget
         $value = [];
         foreach($periodes as $periode) {
             array_push($value, $periode->salaries->count());
-            array_push($months, $periode->month);
+            array_push($months, ucwords($periode->month));
         }
         return [
             'datasets' => [

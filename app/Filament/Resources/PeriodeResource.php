@@ -40,6 +40,7 @@ class PeriodeResource extends Resource
                     'april' => 'April',
                     'mei' => 'Mei',
                     'juni' => 'Juni',
+                    'juli' => 'Juli',
                     'agustus' => 'Agustus',
                     'september' => 'September',
                     'oktober' => 'Oktober',
