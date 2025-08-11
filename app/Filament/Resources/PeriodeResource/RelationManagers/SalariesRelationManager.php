@@ -72,6 +72,9 @@ class SalariesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('pph21')
                 ->required()
                 ->maxLength(255),
+                Forms\Components\TextInput::make('potongan_lainnya')
+                ->required()
+                ->maxLength(255),
                 Forms\Components\TextInput::make('total_potongan')
                 ->required()
                 ->maxLength(255),

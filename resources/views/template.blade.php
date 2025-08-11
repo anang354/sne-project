@@ -217,13 +217,15 @@
 						<td>Lembur</td>
 						<td>:</td>
 						<td>{{$lembur ? number_format($lembur, 0, '.', ',') : '-'}}</td>
-						<td colspan="3">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
 					</tr>
 					<tr class="items">
 						<td>Uang Makan Lembur</td>
 						<td>:</td>
 						<td>{{$uangMakan ? number_format($uangMakan, 0, '.', ',') : '-'}}</td>
-						<td colspan="3">&nbsp;</td>
+						<td>Potongan Lainnya</td>
+						<td>:</td>
+						<td>{{$potonganLainnya ? number_format($potonganLainnya, 0, '.', ',') : '-'}}</td>
 					</tr>
 					<tr class="items">
 						<td>Rapel</td>

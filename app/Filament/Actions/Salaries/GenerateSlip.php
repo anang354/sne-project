@@ -64,6 +64,7 @@ class GenerateSlip
                         'bpjsTk' => $salary->bpjs_tk,
                         'bpjsKs' => $salary->bpjs_ks,
                         'pph21' => $salary->pph21,
+                        'potonganLainnya' => $salary->potongan_lainnya,
                         'totalPotongan' => $salary->total_potongan,
                         'gajiBersih' => $salary->gaji_bersih,
                         'terbilang' => $salary->terbilang,

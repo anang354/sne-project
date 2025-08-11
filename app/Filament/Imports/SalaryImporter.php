@@ -75,6 +75,9 @@ class SalaryImporter extends Importer
             ImportColumn::make('pph21')
                 ->requiredMapping()
                 ->rules(['max:255']),
+            ImportColumn::make('potongan_lainnya')
+            ->requiredMapping()
+            ->rules(['max:255']),
             ImportColumn::make('total_potongan')
                 ->requiredMapping()
                 ->rules(['max:255']),
