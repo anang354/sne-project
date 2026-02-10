@@ -84,6 +84,9 @@ class SalaryImporter extends Importer
             ImportColumn::make('rapel')
                 ->requiredMapping()
                 ->rules(['max:255']),
+            ImportColumn::make('thr')
+                ->requiredMapping()
+                ->rules(['max:255']),
             ImportColumn::make('gaji_bersih')
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),

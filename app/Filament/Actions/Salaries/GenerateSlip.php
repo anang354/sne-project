@@ -58,6 +58,7 @@ class GenerateSlip
                         'lembur' => $salary->lembur,
                         'uangMakan' => $salary->uang_makan,
                         'rapel' => $salary->rapel,
+                        'thr' => $salary->thr,
                         'potonganHari' => $salary->potongan_hari,
                         'potonganAbsensi' => $salary->potongan_absensi,
                         'denda' => $salary->denda,

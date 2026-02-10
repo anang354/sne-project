@@ -233,6 +233,12 @@
 						<td>{{$rapel ? number_format($rapel, 0, '.', ',') : '-'}}</td>
 						<td colspan="3">&nbsp;</td>
 					</tr>
+					<tr class="items">
+						<td>THR</td>
+						<td>:</td>
+						<td>{{$thr ? number_format($thr, 0, '.', ',') : '-'}}</td>
+						<td colspan="3">&nbsp;</td>
+					</tr>
 					<tr class="heading">
 						<td colspan="2"><h4>TOTAL GAJI</h4></td>
 						<td style="text-align: right; padding-right: 20px;"><h4>{{$totalGaji ? number_format($totalGaji, 0, '.', ',') : '-'}}</h4></td>
