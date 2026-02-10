@@ -198,7 +198,7 @@
 						<td>{{$bpjsKs ? number_format($bpjsKs, 0, '.', ',') : '-'}}</td>
 					</tr>
 					<tr class="items">
-						<td>Tunj. Keahlian</td>
+						<td>Tunj. Transport</td>
 						<td>:</td>
 						<td>{{$tunjKerajinan ? number_format($tunjKerajinan, 0, '.', ',') : '-'}}</td>
 						<td>PPH21</td>
@@ -260,7 +260,7 @@
         <div class="qr-code">
           <img src="data:image/svg+xml;base64,{{$qrCode}}"/>
         </div>
-        <p><b>SUGIARTI</b></p>
+        <p><b>GIANA LESTARI</b></p>
       </div>
   </div>
 </body>
