@@ -38,7 +38,7 @@ class ThrSalaryImporter extends Importer
                 ->rules(['max:255']),
             ImportColumn::make('join_date')
                 ->requiredMapping()
-                ->rules(['max:255', 'date']),
+                ->rules(['max:255']),
             ImportColumn::make('masa_kerja')
                 ->requiredMapping()
                 ->rules(['max:255']),
