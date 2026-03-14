@@ -13,4 +13,15 @@ class Salary extends Model
     {
         return $this->belongsTo(Periode::class);
     }
+    const DEPARTEMEN = [
+        'Administrative' => 'Administrative',
+        'Finance' => 'Finance',
+        'Quality' => 'Quality',
+        'Equipment' => 'Equipment',
+        'Production' => 'Production',
+        'Technology' => 'Technology',
+        'Warehouse Planning' => 'Warehouse Planning',
+        'Customs' => 'Customs',
+        'Purchase' => 'Purchase',
+    ];
 }

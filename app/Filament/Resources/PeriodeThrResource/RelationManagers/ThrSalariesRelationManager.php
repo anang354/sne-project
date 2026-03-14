@@ -8,6 +8,8 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -48,7 +50,8 @@ class ThrSalariesRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('nip'),
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
                 Tables\Columns\BadgeColumn::make('departemen')
                 ->colors([
                     'primary',
@@ -80,7 +83,17 @@ class ThrSalariesRelationManager extends RelationManager
                     }),
             ])
             ->filters([
-                //
+                Filter::make('Pdf Belum Dibuat')->query(
+                    function($query) {
+                        return $query->where('is_pdf', false);
+                    } 
+                ),
+                Filter::make('Email Belum Dikirim')->query(
+                    function($query) {
+                        return $query->where('is_sent', false);
+                    } 
+                ),
+                SelectFilter::make('departemen')->options(\App\Models\ThrSalary::DEPARTEMEN)->multiple()
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

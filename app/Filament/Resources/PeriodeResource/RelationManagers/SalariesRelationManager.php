@@ -142,10 +142,7 @@ class SalariesRelationManager extends RelationManager
                         return $query->where('isEmail', false);
                     } 
                 ),
-                SelectFilter::make('departemen')->options([
-                    'Administrative' => 'Aministrative',
-                    'Quality' => 'Quality',
-                ])->multiple()
+                SelectFilter::make('departemen')->options(\App\Models\Salary::DEPARTEMEN)->multiple()
             ])
             ->headerActions([
                 ImportAction::make()->importer(SalaryImporter::class)

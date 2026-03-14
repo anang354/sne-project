@@ -14,4 +14,15 @@ class ThrSalary extends Model
     {
         return $this->belongsTo(PeriodeThr::class, 'periode_thr_id');
     }
+    const DEPARTEMEN = [
+        'Administrative' => 'Administrative',
+        'Finance' => 'Finance',
+        'Quality Control' => 'Quality Control',
+        'Equipment' => 'Equipment',
+        'Production' => 'Production',
+        'Technology' => 'Technology',
+        'Warehouse' => 'Warehouse',
+        'Customs' => 'Customs',
+        'Purchase' => 'Purchase',
+    ];
 }
