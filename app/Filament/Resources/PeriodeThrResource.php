@@ -43,6 +43,9 @@ class PeriodeThrResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(
+                PeriodeThr::query()->withCount('thrSalaries')
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('year')->searchable()->sortable(),
@@ -50,9 +53,13 @@ class PeriodeThrResource extends Resource
                     ->boolean()
                     ->label('Complete')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Created At')
+                Tables\Columns\TextColumn::make('total_thr_amount')
+                    ->label('Total THR')
+                    ->getStateUsing(function (PeriodeThr $record) {
+                        return 'Rp ' . number_format($record->thrSalaries()->sum('thp'), 0, ',', '.');
+                    }),
+                Tables\Columns\TextColumn::make('thr_salaries_count')
+                    ->label('Jumlah Penerima THR')
                     ->sortable(),
             ])
             ->filters([
