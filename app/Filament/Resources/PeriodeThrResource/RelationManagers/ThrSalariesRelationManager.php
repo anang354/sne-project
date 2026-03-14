@@ -75,7 +75,7 @@ class ThrSalariesRelationManager extends RelationManager
                 ])
                 ->toggleable(),
                 Tables\Columns\TextColumn::make('religion'),
-                Tables\Columns\TextColumn::make('join_date')->date(),
+                Tables\Columns\TextColumn::make('join_date'),
                 Tables\Columns\TextColumn::make('masa_kerja'),
                 Tables\Columns\TextColumn::make('thp')
                     ->formatStateUsing(function ($state) {
