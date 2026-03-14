@@ -29,6 +29,9 @@ class SalariesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('gaji_pokok')
                 ->required()
                 ->maxLength(255),

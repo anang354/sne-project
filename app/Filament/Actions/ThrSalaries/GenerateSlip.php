@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Actions\Salaries;
+namespace App\Filament\Actions\ThrSalaries;
 
 use Carbon\Carbon;
 use Livewire\Component;
@@ -19,7 +19,7 @@ class GenerateSlip
 {
     public static function make(): BulkAction
     {
-        return BulkAction::make('generateSalaryPdf')
+        return BulkAction::make('generateThrSalaryPdf')
             ->label('Generate PDF')
             ->color('primary')
             ->icon('heroicon-o-document-arrow-down')
@@ -27,11 +27,12 @@ class GenerateSlip
                 try {
                     $generateCount = 0;
                 foreach($records as $salary) {
-                    $bulan = $salary->periode->month;
-                    $tahun = $salary->periode->year;
-                    $folderPath = $bulan.'-'.$tahun;
+                    $religion = $salary->religion;
+                    $tahun = $salary->periodeThr->year;
+                    $folderPath = $religion.'-'.$tahun;
                     $nomorAcak = self::generateRandomString();
-                    
+                    $titleSlip = $salary->periodeThr->title.' '.$tahun;
+                    $message = $salary->periodeThr->message ?? '';
                     if (!Storage::disk('public')->exists($folderPath)) {
                         Storage::disk('public')->makeDirectory($folderPath, 0775, true, true);
                     }
@@ -40,44 +41,30 @@ class GenerateSlip
                     $data = file_get_contents($path);
                     $image = 'data:image/'.$type.';base64,'.base64_encode($data);
                     $qrCode = base64_encode(QrCode::format('svg')->size('70')->generate($salary->nomor_surat)); 
-                    $filePath = $folderPath.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'-'.$nomorAcak.'.pdf';
-                    $fileUrl = $bulan.'-'.$tahun.'/slip-gaji-'.$salary->nama.'-'.$bulan.' '.$tahun.'-'.$nomorAcak.'.pdf';
+                    $filePath = $folderPath.'/slip-thr-'.$salary->name.'-'.$tahun.'-'.$nomorAcak.'.pdf';
+                    $fileUrl = $religion.'-'.$tahun.'/slip-thr-'.$salary->name.'-'.$tahun.'-'.$nomorAcak.'.pdf';
 
                     //dd(Storage::exists($folderPath));
 
-                    $pdf = Pdf::loadView('template', [
-                        'name' => $salary->nama,
-                        'department' => $salary->departemen,
-                        'position' => $salary->posisi,
-                        'gajiPokok' => $salary->gaji_pokok,
-                        'tunjJabatan' => $salary->tunj_jabatan,
-                        'tunjBahasa' => $salary->tunj_bahasa,
-                        'tunjKerajinan' => $salary->tunj_kerajinan,
-                        'tunjLainnya' => $salary->tunj_lainnya,
-                        'totalGaji' => $salary->total_gaji,
-                        'lembur' => $salary->lembur,
-                        'uangMakan' => $salary->uang_makan,
-                        'rapel' => $salary->rapel,
-                        'thr' => $salary->thr,
-                        'potonganHari' => $salary->potongan_hari,
-                        'potonganAbsensi' => $salary->potongan_absensi,
-                        'denda' => $salary->denda,
-                        'bpjsTk' => $salary->bpjs_tk,
-                        'bpjsKs' => $salary->bpjs_ks,
+                    $pdf = Pdf::loadView('template-thr', [
+                        'name' => $salary->name,
+                        'departemen' => $salary->departemen,
+                        'position' => $salary->position,
+                        'nip' => $salary->nip,
+                        'join_date' => $salary->join_date,
+                        'masa_kerja' => $salary->masa_kerja,
                         'pph21' => $salary->pph21,
-                        'potonganLainnya' => $salary->potongan_lainnya,
-                        'totalPotongan' => $salary->total_potongan,
-                        'gajiBersih' => $salary->gaji_bersih,
+                        'thp' => $salary->thp,
                         'terbilang' => $salary->terbilang,
-                        'tanggal' => $salary->tanggal,
-                        'nomorSurat' => $salary->nomor_surat,
+                        'nomor_surat' => $salary->nomor_surat,
+                        'tahun' => $tahun,
                         'qrCode' => $qrCode,
                         'image' => $image,
-                        'bulan' => $bulan,
-                        'tahun' => $tahun,
+                        'message' => $message,
+                        'titleSlip' => $titleSlip
                     ])->save(Storage::disk('public')->path($filePath));
                     $salary->update([
-                        'isPdf' => true,
+                        'is_pdf' => true,
                         'file' => $fileUrl
                     ]); 
                     $generateCount++;
