@@ -2,35 +2,42 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Periode;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Checkbox;
-use Filament\Tables\Columns\TextColumn;
-use App\Filament\Imports\PeriodeImporter;
-use Filament\Tables\Actions\ImportAction;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Actions\Periodes\DownloadZip;
+use App\Filament\Imports\PeriodeImporter;
 use App\Filament\Resources\PeriodeResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PeriodeResource\RelationManagers;
 use App\Filament\Resources\PeriodeResource\RelationManagers\SalariesRelationManager;
+use App\Models\Periode;
+use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class PeriodeResource extends Resource
 {
     protected static ?string $model = Periode::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationLabel = 'Periode Gaji';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                TextInput::make('id')
+                    ->label('ID Periode')
+                    ->disabledOn('edit')
+                    ->visibleOn('edit')
+                    ->maxLength(255),
                 Select::make('month')
                 ->label('Bulan')
                 ->options([
@@ -65,7 +72,7 @@ class PeriodeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('id periode')->color('danger'),
+                // TextColumn::make('id')->label('id periode')->color('danger'),
                 TextColumn::make('month')
                 ->label('Bulan')
                 ->formatStateUsing(fn (string $state): string => Str::ucfirst($state)),
@@ -84,7 +91,10 @@ class PeriodeResource extends Resource
                 //
             ])
             ->actions([
-                //Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                 ->color('info')
+                 ->icon('heroicon-o-eye')
+                 ->label('Lihat Detail'),
                 Tables\Actions\DeleteAction::make(),
                 DownloadZip::make(),
             ])
@@ -94,7 +104,8 @@ class PeriodeResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()->isAdmin()),
                 ]),
             ]);
     }

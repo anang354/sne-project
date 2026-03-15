@@ -19,8 +19,9 @@ class PeriodeThrResource extends Resource
 {
     protected static ?string $model = PeriodeThr::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'THR';
+    protected static ?string $navigationIcon = 'heroicon-o-percent-badge';
+
+    protected static ?string $navigationLabel  = 'THR';
 
     public static function form(Form $form): Form
     {
@@ -66,11 +67,15 @@ class PeriodeThrResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                 ->color('info')
+                 ->icon('heroicon-o-eye')
+                 ->label('Lihat Detail'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()->isAdmin()),
                 ]),
             ]);
     }
